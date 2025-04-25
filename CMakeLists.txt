@@ -1,11 +1,5 @@
 # Generated Cmake Pico project file
 
-cmake_minimum_required(VERSION 3.13)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 # Initialise pico_sdk from installed location
 # (note this can come from environment, CMake cache etc)
 
@@ -23,6 +17,13 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
+
+cmake_minimum_required(VERSION 3.13)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(PICO_BOARD pico_w CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
@@ -37,13 +38,16 @@ pico_sdk_init()
 
 add_executable(Ohmimetro 
         Ohmimetro.c
-        lib/ssd1306.c)
+        libs/display/ssd1306.c
+        libs/display/display_draws.c
+        libs/cod_cores/cod_cores.c
+        libs/init_config/init_config.c)
 
 pico_set_program_name(Ohmimetro "Ohmimetro")
 pico_set_program_version(Ohmimetro "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(Ohmimetro 1)
+pico_enable_stdio_uart(Ohmimetro 0)
 pico_enable_stdio_usb(Ohmimetro 1)
 
 # Add the standard library to the build
@@ -55,7 +59,9 @@ target_link_libraries(Ohmimetro
 # Add the standard include files to the build
 target_include_directories(Ohmimetro PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
-)
+        ${CMAKE_CURRENT_LIST_DIR}/include/display
+        ${CMAKE_CURRENT_LIST_DIR}/include/cod_cores
+        ${CMAKE_CURRENT_LIST_DIR}/include/init_config)
 
 pico_add_extra_outputs(Ohmimetro)
 
