@@ -219,18 +219,49 @@ void display_init(ssd1306_t *ssd)
 
 
 // Função para desenhar um resistor estilizado no display monocromático
-void desenhar_resistor(ssd1306_t *ssd) {
-  // Desenha o corpo do resistor (retângulo horizontal)
-  ssd1306_rect(ssd, 10, 20, 108, 15, true, false);
+void desenhar_resistor(ssd1306_t *ssd, char *cor1, char *cor2, char *multiplicador) {
+  // // Desenha o corpo do resistor (retângulo horizontal)
+  // ssd1306_rect(ssd, 10, 20, 108, 15, true, false);
   
-  // Desenha os terminais (linhas)
-  ssd1306_line(ssd, 0, 27, 10, 27, true);
-  ssd1306_line(ssd, 118, 27, 128, 27, true);
+  // // Desenha os terminais (linhas)
+  // ssd1306_line(ssd, 0, 27, 10, 27, true);
+  // ssd1306_line(ssd, 118, 27, 128, 27, true);
   
-  // Posições para as faixas (sem preenchimento, apenas localizações marcadas)
-  ssd1306_rect(ssd, 8, 25, 12, 20, true, false);  // Primeira faixa
-  ssd1306_rect(ssd, 8, 45, 12, 20, true, false);  // Segunda faixa
-  ssd1306_rect(ssd, 8, 65, 12, 20, true, false);  // Faixa multiplicador
+  // // Posições para as faixas (sem preenchimento, apenas localizações marcadas)
+  // ssd1306_rect(ssd, 8, 25, 12, 20, true, false);  // Primeira faixa
+  // ssd1306_rect(ssd, 8, 45, 12, 20, true, false);  // Segunda faixa
+  // ssd1306_rect(ssd, 8, 65, 12, 20, true, false);  // Faixa multiplicador
+
+  // Atualiza o display
+ssd1306_fill(ssd, false); // Limpa o display
+
+ssd1306_line(ssd, 20, 5, 20, 60, true); // 1 linha vertical
+
+ssd1306_line(ssd, 20, 5, 110, 5, true); // 1 linha horizontal
+
+ssd1306_line(ssd, 20, 10, 110, 10, true);
+
+ssd1306_draw_string(ssd, cor1, 35, 15);
+
+ssd1306_line(ssd, 20, 25, 110, 25, true);
+
+ssd1306_draw_string(ssd, cor2, 35, 30);
+
+ssd1306_line(ssd, 20, 40, 110, 40, true);
+
+ssd1306_draw_string(ssd, multiplicador, 35, 45);
+
+ssd1306_line(ssd, 20, 55, 110, 55, true);
+
+ssd1306_line(ssd, 20, 60, 110, 60, true); // 2 linha horizontal
+
+ssd1306_line(ssd, 110, 5, 110, 60, true); // 2 linha vertical
+
+// Desenha uma linha divisória antes das informações de cores
+// ssd1306_line(ssd, 0, 35, 128, 35, true);
+
+// Atualiza o display
+ssd1306_send_data(ssd);
 }
 
 void desenhar_erro(ssd1306_t *ssd, char *str_y)

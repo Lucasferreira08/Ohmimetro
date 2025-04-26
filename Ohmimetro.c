@@ -75,7 +75,14 @@
      printf("valor capturado pelo adc: %s. Valor da resistência: %s.\n", str_x, str_y);
      printf("valor comercial: %s. 1 faixa: %s. 2 faixa: %s. 3 faixa: %s.\n", comercial_str, cor1_str, cores_nomes[cor2], mult_str);
 
-     desenhar_display(&ssd, str_y, comercial_str, cores_nomes, cor1, cor2, multiplicador);
+     if (estado_botao()==1)
+     {
+      desenhar_resistor(&ssd, cores_nomes[cor1], cores_nomes[cor2], cores_nomes[multiplicador]);
+     }
+     else 
+     {
+      desenhar_display(&ssd, str_y, comercial_str, cores_nomes, cor1, cor2, multiplicador);
+     }
 
      sleep_ms(700);
    }
