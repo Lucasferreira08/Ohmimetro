@@ -235,27 +235,30 @@ void desenhar_resistor(ssd1306_t *ssd, char *cor1, char *cor2, char *multiplicad
   // Atualiza o display
 ssd1306_fill(ssd, false); // Limpa o display
 
-ssd1306_line(ssd, 20, 5, 20, 60, true); // 1 linha vertical
+ssd1306_line(ssd, 20, 3, 20, 62, true); // 1 linha vertical
 
-ssd1306_line(ssd, 20, 5, 110, 5, true); // 1 linha horizontal
+ssd1306_line(ssd, 20, 3, 110, 3, true); // 1 linha horizontal
 
 ssd1306_line(ssd, 20, 10, 110, 10, true);
 
+ssd1306_draw_string(ssd, "1", 24, 15);
 ssd1306_draw_string(ssd, cor1, 35, 15);
 
 ssd1306_line(ssd, 20, 25, 110, 25, true);
 
+ssd1306_draw_string(ssd, "2", 24, 30);
 ssd1306_draw_string(ssd, cor2, 35, 30);
 
 ssd1306_line(ssd, 20, 40, 110, 40, true);
 
+ssd1306_draw_string(ssd, "3", 24, 45);
 ssd1306_draw_string(ssd, multiplicador, 35, 45);
 
 ssd1306_line(ssd, 20, 55, 110, 55, true);
 
-ssd1306_line(ssd, 20, 60, 110, 60, true); // 2 linha horizontal
+ssd1306_line(ssd, 20, 62, 110, 62, true); // 2 linha horizontal
 
-ssd1306_line(ssd, 110, 5, 110, 60, true); // 2 linha vertical
+ssd1306_line(ssd, 110, 3, 110, 62, true); // 2 linha vertical
 
 // Desenha uma linha divisória antes das informações de cores
 // ssd1306_line(ssd, 0, 35, 128, 35, true);
