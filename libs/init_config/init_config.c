@@ -11,7 +11,7 @@
 
 // Variáveis globais para controle de tempo e estado
 static volatile uint32_t last_time = 0; // Armazena o último tempo de interrupção
-static volatile bool botao = 0; // Armazena o último tempo de interrupção
+static volatile bool botao = false; // Armazena o último tempo de interrupção
 
 #define Botao_A 5
 #define ADC_PIN 28 // GPIO para o voltímetro
@@ -55,5 +55,5 @@ void adc_config()
 
 bool estado_botao()
 {
-    return 1; // botao
+    return botao; // botao
 }

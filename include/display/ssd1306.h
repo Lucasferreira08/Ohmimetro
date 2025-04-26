@@ -59,4 +59,4 @@ void display_init(ssd1306_t *ssd);
 
 void desenhar_resistor(ssd1306_t *ssd, char *cor1, char *cor2, char *multiplicador);
 void desenhar_erro(ssd1306_t *ssd, char *str_y);
-void desenhar_display(ssd1306_t *ssd, char *str_y, char *comercial_str, char **cores_nomes, int cor1, int cor2, int multiplicador);
+void desenhar_display(ssd1306_t *ssd, char *str_y, char *comercial_str);

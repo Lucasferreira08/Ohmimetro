@@ -24,10 +24,10 @@
   adc_config();
  
    float tensao;
-   char str_x[5]; // Buffer para armazenar a string
-   char str_y[5]; // Buffer para armazenar a string
+   char str_x[10]; // Buffer para armazenar a string
+   char str_y[10]; // Buffer para armazenar a string
 
-  char comercial_str[5]; // Buffer para o valor comercial E24
+  char comercial_str[10]; // Buffer para o valor comercial E24
   char cor1_str[7];      // Buffer para a primeira cor
   char cor2_str[7];      // Buffer para a segunda cor
   char mult_str[7];      // Buffer para o multiplicador
@@ -44,11 +44,11 @@
      }
      float media = soma / 500.0f;
 
-     R_x = (R_conhecido * media) / (ADC_RESOLUTION - media);
+    R_x = (R_conhecido * media) / (ADC_RESOLUTION - media);
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-     R_x=852.87;
+    // R_x=852.87;
 
      float valor_comercial = encontrar_valor_e24(R_x);
         
@@ -60,9 +60,9 @@
       sprintf(cor2_str, "%s", cores_nomes[cor2]);
       sprintf(mult_str, "%s", cores_nomes[multiplicador]);
  
-     sprintf(str_x, "%.3f", media); // Converte o inteiro em string
-     sprintf(str_y, "%.3f", R_x);   // Converte o float em string
-     sprintf(comercial_str, "%.3f", valor_comercial);
+     sprintf(str_x, "%.2f", media); // Converte o inteiro em string
+     sprintf(str_y, "%.2f", R_x);   // Converte o float em string
+     sprintf(comercial_str, "%.2f", valor_comercial);
 
     if (R_x < 510 || R_x > 100000) 
     {
@@ -75,13 +75,13 @@
      printf("valor capturado pelo adc: %s. Valor da resistência: %s.\n", str_x, str_y);
      printf("valor comercial: %s. 1 faixa: %s. 2 faixa: %s. 3 faixa: %s.\n", comercial_str, cor1_str, cores_nomes[cor2], mult_str);
 
-     if (estado_botao()==1)
+     if (estado_botao()==true)
      {
       desenhar_resistor(&ssd, cores_nomes[cor1], cores_nomes[cor2], cores_nomes[multiplicador]);
      }
      else 
      {
-      desenhar_display(&ssd, str_y, comercial_str, cores_nomes, cor1, cor2, multiplicador);
+      desenhar_display(&ssd, str_y, comercial_str);
      }
 
      sleep_ms(700);
