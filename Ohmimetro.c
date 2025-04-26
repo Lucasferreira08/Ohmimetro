@@ -8,10 +8,7 @@
   #include "font.h"
  #include "init_config.h"
 #include "cod_cores.h"
-#include "display_draws.h"
 
-
- 
  int R_conhecido = 10000;   // Resistor de 10k ohm
  float R_x = 0.0;           // Resistor desconhecido
  float ADC_VREF = 3.31;     // Tensão de referência do ADC
@@ -47,9 +44,13 @@
      }
      float media = soma / 500.0f;
 
-      R_x = (R_conhecido * media) / (ADC_RESOLUTION - media);
+     R_x = (R_conhecido * media) / (ADC_RESOLUTION - media);
 
-     float valor_comercial = encontrar_valor_e24(R_x+1.0);
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+     R_x=852.87;
+
+     float valor_comercial = encontrar_valor_e24(R_x);
         
      int cor1, cor2, multiplicador;
      calcular_codigo_cores(valor_comercial, &cor1, &cor2, &multiplicador);
@@ -59,19 +60,22 @@
       sprintf(cor2_str, "%s", cores_nomes[cor2]);
       sprintf(mult_str, "%s", cores_nomes[multiplicador]);
  
-     sprintf(str_x, "%1.0f", media); // Converte o inteiro em string
-     sprintf(str_y, "%1.0f", R_x);   // Converte o float em string
+     sprintf(str_x, "%.3f", media); // Converte o inteiro em string
+     sprintf(str_y, "%.3f", R_x);   // Converte o float em string
+     sprintf(comercial_str, "%.3f", valor_comercial);
 
-    if (R_x < 510 || R_x > 100000) {
+    if (R_x < 510 || R_x > 100000) 
+    {
       desenhar_erro(&ssd, str_y);
       
       sleep_ms(1000);
       continue; // Volta ao início do loop
-  }
+    }
 
      printf("valor capturado pelo adc: %s. Valor da resistência: %s.\n", str_x, str_y);
+     printf("valor comercial: %s. 1 faixa: %s. 2 faixa: %s. 3 faixa: %s.\n", comercial_str, cor1_str, cores_nomes[cor2], mult_str);
 
-     desenhar_display(&ssd, str_y, cores_nomes, cor1, cor2, multiplicador);
+     desenhar_display(&ssd, str_y, comercial_str, cores_nomes, cor1, cor2, multiplicador);
 
      sleep_ms(700);
    }

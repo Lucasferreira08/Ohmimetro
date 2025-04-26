@@ -237,14 +237,14 @@ void desenhar_erro(ssd1306_t *ssd, char *str_y)
 {
 // Caso esteja fora da faixa, exibimos uma mensagem de aviso
 ssd1306_fill(ssd, false); // Limpa o display
-ssd1306_draw_string(ssd, "OHMIMETRO BitDogLab", 5, 2);
+ssd1306_draw_string(ssd, "OHMIMETRO", 5, 2);
 ssd1306_line(ssd, 0, 10, 128, 10, true); // Linha divisória
 
 // Formatar o valor medido
 ssd1306_draw_string(ssd, "Valor medido:", 5, 20);
 ssd1306_draw_string(ssd, str_y, 5, 30);
 
-printf("%s, valor: %s", "Fora da faixa", str_y);
+printf("Fora da faixa, valor: %s\n", str_y);
 
 // Aviso de fora da faixa
 ssd1306_draw_string(ssd, "Fora da faixa!", 5, 45);
@@ -254,44 +254,45 @@ ssd1306_draw_string(ssd, "Faixa: 510-100k", 5, 55);
 ssd1306_send_data(ssd);
 }
 
-void desenhar_display(ssd1306_t *ssd, char *str_y, char **cores_nomes, int cor1, int cor2, int multiplicador)
+void desenhar_display(ssd1306_t *ssd, char *str_y, char *comercial_str, char **cores_nomes, int cor1, int cor2, int multiplicador)
 {
 // Atualiza o display
 ssd1306_fill(ssd, false); // Limpa o display
       
 // Desenha o título
-ssd1306_draw_string(ssd, "OHMIMETRO BitDogLab", 5, 2);
+ssd1306_draw_string(ssd, "OHMIMETRO", 5, 2);
 ssd1306_line(ssd, 0, 10, 128, 10, true); // Linha divisória
 
 // Exibe as informações textuais dos valores
 ssd1306_draw_string(ssd, "Medido:", 5, 15);
 ssd1306_draw_string(ssd, str_y, 60, 15);
-// ssd1306_draw_string(&ssd, "E24:", 5, 25);
-// ssd1306_draw_string(&ssd, comercial_str, 60, 25);
+
+ssd1306_draw_string(ssd, "E24:", 5, 45);
+ssd1306_draw_string(ssd, comercial_str, 5, 55);
 
 // Desenha uma linha divisória antes das informações de cores
 ssd1306_line(ssd, 0, 35, 128, 35, true);
 
-// Desenha um resistor estilizado
-ssd1306_rect(ssd, 20, 40, 88, 8, true, false);  // Corpo do resistor
-ssd1306_line(ssd, 10, 44, 20, 44, true);        // Terminal esquerdo
-ssd1306_line(ssd, 108, 44, 118, 44, true);      // Terminal direito
-
-// Desenha retângulos para representar as faixas coloridas
-ssd1306_rect(ssd, 30, 38, 8, 12, true, true);   // 1ª faixa
-ssd1306_rect(ssd, 50, 38, 8, 12, true, true);   // 2ª faixa
-ssd1306_rect(ssd, 70, 38, 8, 12, true, true);   // 3ª faixa (multiplicador)
-ssd1306_rect(ssd, 90, 38, 8, 12, true, true);   // 4ª faixa (tolerância - dourado)
-
-// Exibe os nomes das cores
-ssd1306_draw_string(ssd, "Codigo de cores:", 5, 55);
-
-char cor_info[50];
-sprintf(cor_info, "1:%s 2:%s M:%s T:Dourado", 
-       cores_nomes[cor1], cores_nomes[cor2], cores_nomes[multiplicador]);
-ssd1306_draw_string(ssd, cor_info, 0, 55);
-printf("%s", cor_info);
-
 // Atualiza o display
 ssd1306_send_data(ssd);
 }
+
+// // Desenha um resistor estilizado
+// ssd1306_rect(ssd, 20, 40, 88, 8, true, false);  // Corpo do resistor
+// ssd1306_line(ssd, 10, 44, 20, 44, true);        // Terminal esquerdo
+// ssd1306_line(ssd, 108, 44, 118, 44, true);      // Terminal direito
+
+// // Desenha retângulos para representar as faixas coloridas
+// ssd1306_rect(ssd, 30, 38, 8, 12, true, true);   // 1ª faixa
+// ssd1306_rect(ssd, 50, 38, 8, 12, true, true);   // 2ª faixa
+// ssd1306_rect(ssd, 70, 38, 8, 12, true, true);   // 3ª faixa (multiplicador)
+// ssd1306_rect(ssd, 90, 38, 8, 12, true, true);   // 4ª faixa (tolerância - dourado)
+
+// // Exibe os nomes das cores
+// ssd1306_draw_string(ssd, "Codigo de cores:", 5, 55);
+
+// char cor_info[50];
+// sprintf(cor_info, "1:%s 2:%s M:%s T:Dourado", 
+//        cores_nomes[cor1], cores_nomes[cor2], cores_nomes[multiplicador]);
+// ssd1306_draw_string(ssd, cor_info, 0, 55);
+// printf("%s", cor_info);

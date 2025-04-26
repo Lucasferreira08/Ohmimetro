@@ -28,7 +28,7 @@ float encontrar_valor_e24(float resistencia) {
     float menor_diferenca = 100.0;
     float valor_mais_proximo = E24[0];
     
-    for (int i = 0; i < 24; i++) {
+    for (int i = 0; i < 25; i++) {      // 24
         float diferenca = fabs(valor_normalizado - E24[i]);
         if (diferenca < menor_diferenca) {
             menor_diferenca = diferenca;
