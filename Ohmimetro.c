@@ -28,9 +28,6 @@
    char str_y[10]; // Buffer para armazenar a string
 
   char comercial_str[10]; // Buffer para o valor comercial E24
-  char cor1_str[7];      // Buffer para a primeira cor
-  char cor2_str[7];      // Buffer para a segunda cor
-  char mult_str[7];      // Buffer para o multiplicador
  
    while (true)
    {
@@ -44,24 +41,19 @@
      }
      float media = soma / 500.0f;
 
-    R_x = (R_conhecido * media) / (ADC_RESOLUTION - media);
-
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    // R_x=400.87;
+     if ((ADC_RESOLUTION - media)!=0) {
+      R_x = (R_conhecido * media) / (ADC_RESOLUTION - media);
+     } else {
+      R_x=0.0;
+     }
 
      float valor_comercial = encontrar_valor_e24(R_x);
         
      int cor1, cor2, multiplicador;
      calcular_codigo_cores(valor_comercial, &cor1, &cor2, &multiplicador);
-        
-      // Formata os strings para as cores
-      sprintf(cor1_str, "%s", cores_nomes[cor1]);
-      sprintf(cor2_str, "%s", cores_nomes[cor2]);
-      sprintf(mult_str, "%s", cores_nomes[multiplicador]);
  
-     sprintf(str_x, "%.2f", media); // Converte o inteiro em string
-     sprintf(str_y, "%.2f", R_x);   // Converte o float em string
+     sprintf(str_x, "%.2f", media); // Converte em string
+     sprintf(str_y, "%.2f", R_x);   // Converte float em string
      sprintf(comercial_str, "%.2f", valor_comercial);
 
     if (R_x < 510 || R_x > 100000) 
@@ -71,9 +63,6 @@
       sleep_ms(1000);
       continue; // Volta ao início do loop
     }
-
-     printf("valor capturado pelo adc: %s. Valor da resistência: %s.\n", str_x, str_y);
-     printf("valor comercial: %s. 1 faixa: %s. 2 faixa: %s. 3 faixa: %s.\n", comercial_str, cor1_str, cores_nomes[cor2], mult_str);
 
      if (estado_botao()==true)
      {
