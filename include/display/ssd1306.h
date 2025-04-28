@@ -58,5 +58,5 @@ void ssd1306_draw_string(ssd1306_t *ssd, const char *str, uint8_t x, uint8_t y);
 void display_init(ssd1306_t *ssd);
 
 void desenhar_resistor(ssd1306_t *ssd, char *cor1, char *cor2, char *multiplicador);
-void desenhar_erro(ssd1306_t *ssd, char *str_y);
-void desenhar_display(ssd1306_t *ssd, char *str_y, char *comercial_str);
+void desenhar_erro(ssd1306_t *ssd, char *str_y, char *str_x);
+void desenhar_display(ssd1306_t *ssd, char *str_y, char *comercial_str, char *str_x);

@@ -237,11 +237,11 @@ void desenhar_resistor(ssd1306_t *ssd, char *cor1, char *cor2, char *multiplicad
   // Atualiza o display
 ssd1306_fill(ssd, false); // Limpa o display
 
-ssd1306_line(ssd, 20, 3, 20, 62, true); // 1 linha vertical
+ssd1306_line(ssd, 65, 10, 65, 0, true); // perna do resistor superior
 
-ssd1306_line(ssd, 20, 3, 110, 3, true); // 1 linha horizontal
+ssd1306_line(ssd, 20, 10, 20, 55, true); // 1 linha vertical
 
-ssd1306_line(ssd, 20, 10, 110, 10, true);
+ssd1306_line(ssd, 20, 10, 110, 10, true); // 1 linha horizontal
 
 ssd1306_draw_string(ssd, "1", 24, 15);
 ssd1306_draw_string(ssd, cor1, 35, 15);
@@ -256,20 +256,17 @@ ssd1306_line(ssd, 20, 40, 110, 40, true);
 ssd1306_draw_string(ssd, "3", 24, 45);
 ssd1306_draw_string(ssd, multiplicador, 35, 45);
 
-ssd1306_line(ssd, 20, 55, 110, 55, true);
+ssd1306_line(ssd, 20, 55, 110, 55, true); // 2 linha horizontal
 
-ssd1306_line(ssd, 20, 62, 110, 62, true); // 2 linha horizontal
+ssd1306_line(ssd, 110, 10, 110, 55, true); // 2 linha vertical
 
-ssd1306_line(ssd, 110, 3, 110, 62, true); // 2 linha vertical
-
-// Desenha uma linha divisória antes das informações de cores
-// ssd1306_line(ssd, 0, 35, 128, 35, true);
+ssd1306_line(ssd, 65, 55, 65, 63, true); // perna do resistor inferior
 
 // Atualiza o display
 ssd1306_send_data(ssd);
 }
 
-void desenhar_erro(ssd1306_t *ssd, char *str_y)
+void desenhar_erro(ssd1306_t *ssd, char *str_y, char *str_x)
 {
   printf("Desenho erro.\n");
 // Caso esteja fora da faixa, exibimos uma mensagem de aviso
@@ -278,20 +275,26 @@ ssd1306_draw_string(ssd, "OHMIMETRO", 5, 2);
 ssd1306_line(ssd, 0, 10, 128, 10, true); // Linha divisória
 
 // Formatar o valor medido
-ssd1306_draw_string(ssd, "Valor medido:", 5, 20);
-ssd1306_draw_string(ssd, str_y, 5, 30);
+ssd1306_draw_string(ssd, "Valor (Ohms):", 5, 13);
+ssd1306_draw_string(ssd, str_y, 5, 23);
 
-printf("Fora da faixa, valor: %s\n", str_y);
+ssd1306_line(ssd, 0, 33, 128, 33, true); // Linha divisória
+
+// Formatar o valor medido
+ssd1306_draw_string(ssd, "ADC:", 5, 36);
+ssd1306_draw_string(ssd, str_x, 50, 36);
+
+ssd1306_line(ssd, 0, 45, 128, 45, true); // Linha divisória
 
 // Aviso de fora da faixa
-ssd1306_draw_string(ssd, "Fora da faixa!", 5, 45);
+ssd1306_draw_string(ssd, "Fora da faixa!", 5, 47);
 ssd1306_draw_string(ssd, "Faixa: 510-100k", 5, 55);
 
 // Atualiza o display
 ssd1306_send_data(ssd);
 }
 
-void desenhar_display(ssd1306_t *ssd, char *str_y, char *comercial_str)
+void desenhar_display(ssd1306_t *ssd, char *str_y, char *comercial_str, char *str_x)
 {
   printf("Desenho display.\n");
 // Atualiza o display
@@ -302,10 +305,17 @@ ssd1306_draw_string(ssd, "OHMIMETRO", 5, 2);
 ssd1306_line(ssd, 0, 10, 128, 10, true); // Linha divisória
 
 // Exibe as informações textuais dos valores
-ssd1306_draw_string(ssd, "Medido:", 5, 15);
+ssd1306_draw_string(ssd, "Medido (Ohms):", 5, 15);
 ssd1306_draw_string(ssd, str_y, 5, 25);
 
-ssd1306_draw_string(ssd, "valor E24:", 5, 45);
+ssd1306_line(ssd, 0, 34, 128, 34, true); // Linha divisória
+
+ssd1306_draw_string(ssd, "ADC:", 5, 36);
+ssd1306_draw_string(ssd, str_x, 50, 36);
+
+ssd1306_line(ssd, 0, 44, 128, 44, true); // Linha divisória
+
+ssd1306_draw_string(ssd, "Valor E24(Ohms)", 5, 46);
 ssd1306_draw_string(ssd, comercial_str, 5, 55);
 
 // // Desenha uma linha divisória antes das informações de cores

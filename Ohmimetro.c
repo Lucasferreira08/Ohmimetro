@@ -48,7 +48,7 @@
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    // R_x=852.87;
+    // R_x=400.87;
 
      float valor_comercial = encontrar_valor_e24(R_x);
         
@@ -66,7 +66,7 @@
 
     if (R_x < 510 || R_x > 100000) 
     {
-      desenhar_erro(&ssd, str_y);
+      desenhar_erro(&ssd, str_y, str_x);
       
       sleep_ms(1000);
       continue; // Volta ao início do loop
@@ -81,7 +81,7 @@
      }
      else 
      {
-      desenhar_display(&ssd, str_y, comercial_str);
+      desenhar_display(&ssd, str_y, comercial_str, str_x);
      }
 
      sleep_ms(700);
